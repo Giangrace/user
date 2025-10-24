@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+/* ✅ Video background setup */
+body {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  padding: 50px 5%;
+}
+
+/* ✅ Background video */
+video#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+  .container {
+    position: relative;
+    height: 100%;
+    background: rgba(255, 255, 255, .1);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 30px;
+    backdrop-filter: blur(30px);
+    transform: scale(0);
+    animation: zoom-in 1s ease forwards;
+
+   }
+   @keyframes zoom-in {
+    100%{
+        transform: scale(1);
+    }
+   }
+
+header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+   }
+   .animated {
+    transform: translateY(30px);
+    opacity: 0;
+    animation: slide-in 1s ease forwards;
+    animation-delay: 1s;
+   }
+   @keyframes slide-in {
+    100%  {
+        transform: translateY(1);
+        opacity: 1;
+    }
+   }
+
+.logo{
+    color: #fff;
+    font-size: 25px;
+    font-weight: 600;
+    text-decoration: none;
+   }
+  
+.navbar a{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 30px;
+    border-bottom: 2px solid transparent;
+    transition: .5s;
+   }
+.navbar a:hover, 
+.navbar a.active{
+    border-bottom: 2px solid #fff;
+   }
+
+   .home{
+      display: flex;
+      align-items: center;
+      height: 100%;
+      gap: 50px;
+      padding: 50px 5% 0;
+      color: #fff;
+      animation-delay: 1.5s;
+
+   }
+
+   .home-detail h1 {
+    font-size: 55px;
+    line-height: 1;
+   }
+   .home-detail h2 {
+    font-size: 32px;
+   }
+
+  .home-detail p {
+    margin: 10px 0 20px;
+
+  }
+  .home-detail .download-social {
+    display: flex;
+    align-items: center;
+    
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 30px;
+    background: #fff;
+    border: 2px solid #fff;
+    border-radius: 40px;
+    box-shadow: 0 0 10px #fff;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: .5s; 
+  }
+
+  .btn:hover {
+    background: transparent;
+    box-shadow: none;
+    color: #fff;
+  }
+  .home-detail .social-icons {
+    margin-left: 20px;
+  }
+  .home-detail .social-icons a {
+    display: inline-block;
+    padding: 8px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    margin-left: 0 8px;
+    transition: .5s;
+  }
+  .home-detail .social-icons a:hover {
+    background: #fff;
+    box-shadow: 0 0 10px #fff;
+    color: #333;
+  }
+  .home-img .img-box {
+    position: relative;
+    width: 28vw;
+    height: 28vw;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #fff;
+  }
+  .home-img .img-box img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 26vw;
+    height: 26vw;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+ .page {
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.bg-text {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 20px auto;
+  line-height: 1.6;
+  background: rgba(0,0,0,0.5);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.form-box {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="text"], input[type="file"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  width: 250px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0097a7;
+}
+
+#projectList {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.project-item {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+}
+
+.project-item img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.delete-btn {
+  margin-top: 10px;
+  background-color: #ff4d4d;
+}
+
+.delete-btn:hover {
+  background-color: #cc0000;
+}
+
