@@ -1,0 +1,187 @@
+/* 🎨 Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* 🔹 Container */
+.container {
+  width: 400px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.form-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+/* 🔹 Input Fields */
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #777;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 40px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+  background: #f5f6ff;
+}
+
+.input-group input:focus {
+  border-color: #6c63ff;
+  background: #eef;
+  outline: none;
+}
+
+label {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s ease;
+  background: #fff;
+  padding: 0 5px;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+  top: -8px;
+  font-size: 12px;
+  color: #6c63ff;
+}
+
+/* 🔹 Remember Me */
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.remember input {
+  accent-color: #6c63ff;
+  cursor: pointer;
+}
+
+/* 🔹 Button */
+.btn {
+  width: 100%;
+  padding: 10px;
+  background: #6c63ff;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #4b47cc;
+}
+
+/* 🔹 Social & Links */
+.or {
+  text-align: center;
+  font-weight: bold;
+  color: #555;
+  margin: 20px 0 15px;
+}
+
+.social-icons {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.social-icons a {
+  color: #6c63ff;
+  border: 2px solid #dfe9f5;
+  margin: 0 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  background: #6c63ff;
+  color: #fff;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.links p {
+  color: #444;
+}
+
+button {
+  color: #6c63ff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  text-decoration: underline;
+}
+
+/* 🔹 Recover */
+.recover {
+  text-align: right;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.recover a {
+  color: #6c63ff;
+  text-decoration: none;
+}
+
+.recover a:hover {
+  text-decoration: underline;
+}

@@ -1,48 +1,24 @@
-// Load saved projects from localStorage
-window.addEventListener("load", () => {
-  const saved = JSON.parse(localStorage.getItem("projects")) || [];
-  saved.forEach(addProjectToPage);
+// 🔁 Switch Forms
+document.getElementById("SignInButton").addEventListener("click", () => {
+  document.getElementById("signUp").style.display = "none";
+  document.getElementById("signIn").style.display = "block";
 });
 
-function addProject() {
-  const name = document.getElementById("projectName").value.trim();
-  const fileInput = document.getElementById("projectFile");
-  const file = fileInput.files[0];
+document.getElementById("SignUpButton").addEventListener("click", () => {
+  document.getElementById("signIn").style.display = "none";
+  document.getElementById("signUp").style.display = "block";
+});
 
-  if (!name || !file) {
-    alert("⚠️ Please enter a project name and select a file!");
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const dataUrl = e.target.result;
-    const project = { name, dataUrl, fileType: file.type };
-    const projects = JSON.parse(localStorage.getItem("projects")) || [];
-    projects.push(project);
-    localStorage.setItem("projects", JSON.stringify(projects));
-    addProjectToPage(project);
-    document.getElementById("projectName").value = "";
-    fileInput.value = "";
-  };
-  reader.readAsDataURL(file);
-}
-
-function addProjectToPage(project) {
-  const list = document.getElementById("projectList");
-  const div = document.createElement("div");
-  div.className = "project-item";
-  
-  let preview = "";
-  if (project.fileType.startsWith("image/")) {
-    preview = `<img src="${project.dataUrl}" alt="${project.name}">`;
-  } else {
-    preview = `<a href="${project.dataUrl}" download="${project.name}">📄 Download File</a>`;
-  }
-
-  div.innerHTML = `
-    <h3>${project.name}</h3>
-    ${preview}
-  `;
-  list.appendChild(div);
-}
+// 👁️ Toggle Password Visibility
+document.querySelectorAll(".togglePassword").forEach(icon => {
+  icon.addEventListener("click", () => {
+    const input = icon.previousElementSibling;
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.replace("fa-eye-slash", "fa-eye");
+    }
+  });
+});
