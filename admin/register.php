@@ -1,43 +1,47 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include 'connect.php';
-session_start();
 
 if (isset($_POST['SignUp'])) {
-    $fName = $_POST['fName'];
-    $lName = $_POST['lName'];
-    $email = $_POST['email'];
-    $password = md5($_POST['password']); // encrypted
-
-    $checkEmail = "SELECT * FROM users WHERE email='$email'";
-    $result = $conn->query($checkEmail);
-
-    if ($result->num_rows > 0) {
-        echo "<script>alert('Email Address Already Exists.');</script>";
-    } else {
-        $insertQuery = "INSERT INTO users (fName, lName, email, password) VALUES ('$fName', '$lName', '$email', '$password')";
-        if ($conn->query($insertQuery) === TRUE) {
-            echo "<script>alert('Registration Successful! Please login.'); window.location='register.php';</script>";
-        } else {
-            echo "Error: " . $conn->error;
-        }
-    }
-}
-
-if (isset($_POST['SignIn'])) {
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
-
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $_SESSION['email'] = $row['email'];
-        $_SESSION['username'] = $row['fName'];
-        header("Location: index.php");
+    $firstName = trim($_POST['fName']);
+    $lastName = trim($_POST['lName']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    
+    // Validate inputs
+    if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
+        echo "<script>alert('All fields are required!'); window.location.href='index.html';</script>";
         exit();
-    } else {
-        echo "<script>alert('Incorrect Email or Password.');</script>";
     }
+    
+    // Hash the password
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+    // Check if email already exists
+    $checkEmail = $conn->prepare("SELECT email FROM user WHERE email = ?");
+    $checkEmail->bind_param("s", $email);
+    $checkEmail->execute();
+    $result = $checkEmail->get_result();
+    
+    if ($result->num_rows > 0) {
+        echo "<script>alert('Email already exists!'); window.location.href='index.html';</script>";
+    } else {
+        // Insert new user
+        $stmt = $conn->prepare("INSERT INTO user (firstName, lastName, email, password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $firstName, $lastName, $email, $hashedPassword);
+        
+        if ($stmt->execute()) {
+            echo "<script>alert('Registration successful! Please login.'); window.location.href='index.html';</script>";
+        } else {
+            echo "<script>alert('Error: " . $conn->error . "'); window.location.href='index.html';</script>";
+        }
+        $stmt->close();
+    }
+    $checkEmail->close();
+} else {
+    echo "This page should only be accessed via form submission.";
 }
+$conn->close();
 ?>

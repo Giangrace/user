@@ -17,14 +17,18 @@ include 'connect.php';
     <?php
     if (isset($_SESSION['email'])) {
         $email = $_SESSION['email'];
-        // ✅ Fixed table name quotes and alias
-        $squery = mysqli_query($conn, "SELECT * FROM user WHERE email = '$email'");
+        // ✅ FIXED: Added prepared statement to prevent SQL injection
+        $stmt = $conn->prepare("SELECT firstName, lastName FROM user WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if ($squery && mysqli_num_rows($squery) > 0) {
-            while ($row = mysqli_fetch_assoc($squery)) {
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
                 echo ' ' . htmlspecialchars($row['firstName']) . ' ' . htmlspecialchars($row['lastName']);
             }
         }
+        $stmt->close();
     }
     ?>
     :)
