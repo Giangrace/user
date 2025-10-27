@@ -1,6 +1,12 @@
 <?php
-session_start(); // ✅ Must start session first!
+session_start();
 session_destroy();
-header("Location: index.html"); // Changed to index.html since that's your login page
-exit(); // ✅ Always add exit after header redirect
+header("Location: login.php");
+exit();
 ?>
+```
+
+## **Visual Result:**
+The navigation will look like:
+```
+Home | About | Profile | Service | Project    [🚪 Logout]
