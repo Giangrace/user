@@ -1,18 +1,26 @@
 <?php
-// Database configuration
+// Test database connection
 $host = 'localhost';
 $username = 'root';
-$password = ''; // Change this if you have a password
+$password = '';
 $database = 'portfolio_db';
 
-// Create connection
 $conn = mysqli_connect($host, $username, $password, $database);
 
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+if ($conn) {
+    echo "✅ Database connection successful!<br>";
+    echo "Connected to database: " . $database;
+    
+    // Check if table exists
+    $result = mysqli_query($conn, "SHOW TABLES LIKE 'projects'");
+    if (mysqli_num_rows($result) > 0) {
+        echo "<br>✅ Projects table exists!";
+    } else {
+        echo "<br>❌ Projects table NOT found! Please create it.";
+    }
+} else {
+    echo "❌ Connection failed: " . mysqli_connect_error();
 }
 
-// Set charset to utf8mb4 for better compatibility
-mysqli_set_charset($conn, "utf8mb4");
+mysqli_close($conn);
 ?>
