@@ -1,26 +1,28 @@
-// Toggle between Sign Up and Sign In forms
-const signUpButton = document.getElementById('signUpButton');
+// Get form containers
+const signUpContainer = document.getElementById('signUp');
+const signInContainer = document.getElementById('signIn');
+
+// Get toggle buttons
 const signInButton = document.getElementById('signInButton');
-const signUpForm = document.getElementById('signUp');
-const signInForm = document.getElementById('signIn');
+const signUpButton = document.getElementById('signUpButton');
 
-// Switch to Sign In form
-signInButton.addEventListener('click', function() {
-  signUpForm.style.display = 'none';
-  signInForm.style.display = 'block';
+// Toggle to Sign In form
+signInButton.addEventListener('click', () => {
+  signUpContainer.style.display = 'none';
+  signInContainer.style.display = 'block';
 });
 
-// Switch to Sign Up form
-signUpButton.addEventListener('click', function() {
-  signInForm.style.display = 'none';
-  signUpForm.style.display = 'block';
+// Toggle to Sign Up form
+signUpButton.addEventListener('click', () => {
+  signInContainer.style.display = 'none';
+  signUpContainer.style.display = 'block';
 });
 
-// Password visibility toggle
-const togglePasswordIcons = document.querySelectorAll('.togglePassword');
+// Password toggle functionality
+const togglePasswordButtons = document.querySelectorAll('.togglePassword');
 
-togglePasswordIcons.forEach(icon => {
-  icon.addEventListener('click', function() {
+togglePasswordButtons.forEach(button => {
+  button.addEventListener('click', function() {
     const passwordInput = this.previousElementSibling.previousElementSibling;
     
     if (passwordInput.type === 'password') {
@@ -31,28 +33,6 @@ togglePasswordIcons.forEach(icon => {
       passwordInput.type = 'password';
       this.classList.remove('fa-eye-slash');
       this.classList.add('fa-eye');
-    }
-  });
-});
-
-// Form validation (optional enhancement)
-document.querySelectorAll('form').forEach(form => {
-  form.addEventListener('submit', function(e) {
-    const inputs = this.querySelectorAll('input[required]');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-      if (!input.value.trim()) {
-        isValid = false;
-        input.style.borderColor = '#f44336';
-      } else {
-        input.style.borderColor = '#e0e0e0';
-      }
-    });
-    
-    if (!isValid) {
-      e.preventDefault();
-      alert('Please fill in all required fields');
     }
   });
 });
