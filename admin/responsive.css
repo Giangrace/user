@@ -1,0 +1,418 @@
+/* ========================================
+   RESPONSIVE CSS FOR ALL DEVICES
+   ======================================== */
+
+/* Base styles are for desktop (already in your css.css) */
+
+/* ========================================
+   TABLET STYLES (768px - 1024px)
+   ======================================== */
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 0 30px;
+  }
+
+  header {
+    padding: 20px 30px;
+  }
+
+  .navbar a {
+    margin-left: 25px;
+    font-size: 15px;
+  }
+
+  .page {
+    max-width: 100%;
+    padding: 20px 15px;
+  }
+
+  .page h1 {
+    font-size: 2em;
+  }
+
+  /* Table responsive */
+  .form-table {
+    font-size: 13px;
+  }
+
+  .form-table th,
+  .form-table td {
+    padding: 12px 10px;
+  }
+
+  .form-table input[type="text"],
+  .form-table textarea,
+  .form-table select {
+    font-size: 13px;
+    padding: 8px;
+  }
+}
+
+/* ========================================
+   MOBILE LANDSCAPE (481px - 767px)
+   ======================================== */
+@media screen and (max-width: 767px) {
+  /* Header adjustments */
+  header {
+    flex-direction: column;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .navbar a {
+    margin: 0;
+    font-size: 14px;
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+  }
+
+  /* Page content */
+  .page h1 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+
+  /* Form box */
+  .form-box {
+    padding: 25px 20px;
+  }
+
+  /* Convert table to stacked layout */
+  .form-table,
+  .form-table thead,
+  .form-table tbody,
+  .form-table tr,
+  .form-table th,
+  .form-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .form-table thead {
+    display: none; /* Hide header on mobile */
+  }
+
+  .form-table tr {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .form-table td {
+    border: none;
+    padding: 10px 0;
+    position: relative;
+    background: transparent;
+  }
+
+  .form-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Add data labels for mobile */
+  .form-table td:nth-child(1)::before {
+    content: "Project Name *";
+  }
+
+  .form-table td:nth-child(2)::before {
+    content: "Project Description *";
+  }
+
+  .form-table td:nth-child(3)::before {
+    content: "Category *";
+  }
+
+  .form-table td:nth-child(4)::before {
+    content: "Upload File";
+  }
+
+  .form-table input[type="text"],
+  .form-table textarea,
+  .form-table select,
+  .form-table input[type="file"] {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .form-table textarea {
+    min-height: 100px;
+  }
+
+  /* Submit button */
+  .form-box button[type="submit"] {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  /* Project cards */
+  .project-card {
+    padding: 15px;
+  }
+
+  .project-card h3 {
+    font-size: 1.2em;
+  }
+
+  .project-card p {
+    font-size: 14px;
+  }
+
+  .project-card .delete-btn {
+    float: none;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  .project-card .file-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  /* Message box */
+  .message {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .file-info {
+    font-size: 11px;
+  }
+}
+
+/* ========================================
+   MOBILE PORTRAIT (320px - 480px)
+   ======================================== */
+@media screen and (max-width: 480px) {
+  /* Header */
+  header {
+    padding: 15px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .navbar a {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  /* Main title */
+  .page h1 {
+    font-size: 1.5em;
+    margin-bottom: 25px;
+  }
+
+  /* Form */
+  .form-box {
+    padding: 20px 15px;
+    border-radius: 15px;
+  }
+
+  .form-table input[type="text"],
+  .form-table textarea,
+  .form-table select {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .form-table textarea {
+    min-height: 80px;
+  }
+
+  .form-box button[type="submit"] {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  /* File upload button */
+  .form-table input[type="file"]::-webkit-file-upload-button {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  /* Project cards */
+  .project-card {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+
+  .project-card h3 {
+    font-size: 1.1em;
+  }
+
+  .project-card p {
+    font-size: 13px;
+  }
+
+  /* Message */
+  .message {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+/* ========================================
+   VERY SMALL DEVICES (< 320px)
+   ======================================== */
+@media screen and (max-width: 320px) {
+  .logo {
+    font-size: 16px;
+  }
+
+  .navbar a {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .page h1 {
+    font-size: 1.3em;
+  }
+
+  .form-box {
+    padding: 15px 10px;
+  }
+
+  .form-table input[type="text"],
+  .form-table textarea,
+  .form-table select {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* ========================================
+   LANDSCAPE ORIENTATION FIX
+   ======================================== */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  header {
+    padding: 10px 20px;
+  }
+
+  .page h1 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .form-box {
+    padding: 20px;
+  }
+
+  .navbar a {
+    padding: 6px 12px;
+  }
+}
+
+/* ========================================
+   VIDEO BACKGROUND RESPONSIVE
+   ======================================== */
+@media screen and (max-width: 767px) {
+  #bg-video {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+  #bg-video,
+  .navbar,
+  .form-box button,
+  .delete-btn {
+    display: none !important;
+  }
+
+  .container {
+    background: white;
+  }
+
+  .page h1,
+  .project-card h3,
+  .project-card p {
+    color: black !important;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .form-box {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .form-table input,
+  .form-table textarea,
+  .form-table select {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* ========================================
+   TOUCH DEVICE IMPROVEMENTS
+   ======================================== */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets for mobile */
+  .navbar a,
+  .form-box button,
+  .delete-btn,
+  .file-link {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Remove hover effects on touch devices */
+  .navbar a:hover,
+  .form-box button:hover,
+  .project-card:hover {
+    transform: none;
+  }
+
+  /* Add active state instead */
+  .navbar a:active,
+  .form-box button:active {
+    transform: scale(0.95);
+  }
+}
