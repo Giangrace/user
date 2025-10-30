@@ -1,48 +1,38 @@
-// Load saved projects from localStorage
-window.addEventListener("load", () => {
-  const saved = JSON.parse(localStorage.getItem("projects")) || [];
-  saved.forEach(addProjectToPage);
+// Get form containers
+const signUpContainer = document.getElementById('signUp');
+const signInContainer = document.getElementById('signIn');
+
+// Get toggle buttons
+const signInButton = document.getElementById('signInButton');
+const signUpButton = document.getElementById('signUpButton');
+
+// Toggle to Sign In form
+signInButton.addEventListener('click', () => {
+  signUpContainer.style.display = 'none';
+  signInContainer.style.display = 'block';
 });
 
-function addProject() {
-  const name = document.getElementById("projectName").value.trim();
-  const fileInput = document.getElementById("projectFile");
-  const file = fileInput.files[0];
+// Toggle to Sign Up form
+signUpButton.addEventListener('click', () => {
+  signInContainer.style.display = 'none';
+  signUpContainer.style.display = 'block';
+});
 
-  if (!name || !file) {
-    alert("⚠️ Please enter a project name and select a file!");
-    return;
-  }
+// Password toggle functionality
+const togglePasswordButtons = document.querySelectorAll('.togglePassword');
 
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const dataUrl = e.target.result;
-    const project = { name, dataUrl, fileType: file.type };
-    const projects = JSON.parse(localStorage.getItem("projects")) || [];
-    projects.push(project);
-    localStorage.setItem("projects", JSON.stringify(projects));
-    addProjectToPage(project);
-    document.getElementById("projectName").value = "";
-    fileInput.value = "";
-  };
-  reader.readAsDataURL(file);
-}
-
-function addProjectToPage(project) {
-  const list = document.getElementById("projectList");
-  const div = document.createElement("div");
-  div.className = "project-item";
-  
-  let preview = "";
-  if (project.fileType.startsWith("image/")) {
-    preview = `<img src="${project.dataUrl}" alt="${project.name}">`;
-  } else {
-    preview = `<a href="${project.dataUrl}" download="${project.name}">📄 Download File</a>`;
-  }
-
-  div.innerHTML = `
-    <h3>${project.name}</h3>
-    ${preview}
-  `;
-  list.appendChild(div);
-}
+togglePasswordButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    const passwordInput = this.previousElementSibling.previousElementSibling;
+    
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      this.classList.remove('fa-eye');
+      this.classList.add('fa-eye-slash');
+    } else {
+      passwordInput.type = 'password';
+      this.classList.remove('fa-eye-slash');
+      this.classList.add('fa-eye');
+    }
+  });
+});

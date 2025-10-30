@@ -7,6 +7,246 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css.css">
+  <link rel="stylesheet" href="../admin/responsive.css">
+  <style>
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .page h1 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 40px;
+      font-size: 2.5em;
+      text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+    }
+
+    .form-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      padding: 40px;
+      border-radius: 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .form-table thead {
+      background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .form-table th {
+      padding: 15px;
+      text-align: left;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .form-table td {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      vertical-align: top;
+    }
+
+    .form-table input[type="text"],
+    .form-table textarea,
+    .form-table select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .form-table input[type="text"]:focus,
+    .form-table textarea:focus,
+    .form-table select:focus {
+      outline: none;
+      border-color: rgba(102, 126, 234, 0.6);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+    }
+
+    .form-table input::placeholder,
+    .form-table textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .form-table textarea {
+      min-height: 80px;
+      resize: vertical;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .form-table select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 35px;
+    }
+
+    .form-table select option {
+      background: #2a2a4a;
+      color: #fff;
+      padding: 10px;
+    }
+
+    .form-table input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+    }
+
+    .form-table input[type="file"]::-webkit-file-upload-button {
+      background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .form-table input[type="file"]::-webkit-file-upload-button:hover {
+      transform: scale(1.05);
+    }
+
+    .file-info {
+      display: block;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+      margin-bottom: 20px;
+      padding-left: 5px;
+    }
+
+    .form-box button[type="submit"] {
+      width: 100%;
+      padding: 16px;
+      margin-top: 10px;
+      background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .form-box button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+    }
+
+    .form-box button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-card h3 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .project-card p {
+      color: rgba(255, 255, 255, 0.8);
+      margin: 5px 0;
+    }
+
+    .project-card .file-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: rgba(102, 126, 234, 0.3);
+      border-radius: 5px;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .project-card .file-link:hover {
+      background: rgba(102, 126, 234, 0.5);
+    }
+
+    .project-card .delete-btn {
+      float: right;
+      padding: 5px 15px;
+      background: rgba(234, 67, 53, 0.3);
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .project-card .delete-btn:hover {
+      background: rgba(234, 67, 53, 0.5);
+    }
+
+    .message {
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .message.success {
+      background: rgba(76, 175, 80, 0.3);
+      color: #fff;
+      border: 2px solid rgba(76, 175, 80, 0.5);
+    }
+
+    .message.error {
+      background: rgba(234, 67, 53, 0.3);
+      color: #fff;
+      border: 2px solid rgba(234, 67, 53, 0.5);
+    }
+  </style>
 </head>
 <body>
   <video autoplay muted loop id="bg-video">
@@ -17,7 +257,7 @@
     <header class="animated"> 
       <a href="index.html" class="logo">Junard B. Taoy</a>
       <nav class="navbar">  
-        <a href="index.html">Home</a>
+        <a href="../admin/index.html">Home</a>
         <a href="about.html">About</a>  
         <a href="portfolio.html">Profile</a>
         <a href="service.html">Service</a>
@@ -28,15 +268,166 @@
     <section class="page animated">
       <h1>My Projects</h1>
 
+      <div id="message" class="message"></div>
+
       <div class="form-box">
-        <input type="text" id="projectName" placeholder="Project Name">
-        <input type="file" id="projectFile">
-        <button onclick="addProject()">Add Project</button>
+        <form id="projectForm" enctype="multipart/form-data">
+          <table class="form-table">
+            <thead>
+              <tr>
+                <th>Project Name *</th>
+                <th>Project Description *</th>
+                <th>Category *</th>
+                <th>Upload File</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" id="projectName" name="projectName" placeholder="Enter project name" required></td>
+                <td><textarea id="projectDescription" name="projectDescription" placeholder="Enter description" required></textarea></td>
+                <td>
+                  <select id="projectCategory" name="projectCategory" required>
+                    <option value="">Select</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Mobile App">Mobile App</option>
+                    <option value="Design">Design</option>
+                    <option value="Software">Software</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </td>
+                <td><input type="file" id="projectFile" name="projectFile" accept=".pdf,.doc,.docx,.zip,.rar,.jpg,.jpeg,.png"></td>
+              </tr>
+            </tbody>
+          </table>
+          <span class="file-info">Accepted: PDF, DOC, DOCX, ZIP, RAR, JPG, PNG (Max 5MB)</span>
+          <button type="submit">Add Project</button>
+        </form>
       </div>
 
       <div id="projectList"></div>
     </section>
   </div>
-  <script src="script.js"></script>
+  
+  <script>
+    // Load projects on page load
+    document.addEventListener('DOMContentLoaded', loadProjects);
+
+    // Handle form submission
+    document.getElementById('projectForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      addProject();
+    });
+
+    function addProject() {
+      const formData = new FormData();
+      const projectName = document.getElementById('projectName').value;
+      const projectDescription = document.getElementById('projectDescription').value;
+      const projectCategory = document.getElementById('projectCategory').value;
+      const projectFile = document.getElementById('projectFile').files[0];
+
+      // Validation
+      if (!projectName || !projectDescription || !projectCategory) {
+        showMessage('Please fill in all required fields!', 'error');
+        return;
+      }
+
+      formData.append('projectName', projectName);
+      formData.append('projectDescription', projectDescription);
+      formData.append('projectCategory', projectCategory);
+      if (projectFile) {
+        formData.append('projectFile', projectFile);
+      }
+
+      // Send to server
+      fetch('add_project.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showMessage('Project added successfully!', 'success');
+          document.getElementById('projectForm').reset();
+          loadProjects();
+        } else {
+          showMessage(data.message || 'Error adding project!', 'error');
+        }
+      })
+      .catch(error => {
+        showMessage('Error: ' + error.message, 'error');
+      });
+    }
+
+    function loadProjects() {
+      fetch('get_projects.php')
+        .then(response => response.json())
+        .then(data => {
+          const projectList = document.getElementById('projectList');
+          projectList.innerHTML = '';
+
+          if (data.success && data.projects.length > 0) {
+            data.projects.forEach(project => {
+              const card = document.createElement('div');
+              card.className = 'project-card';
+              card.innerHTML = `
+                <button class="delete-btn" onclick="deleteProject(${project.id})">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+                <h3><i class="fas fa-project-diagram"></i> ${project.project_name}</h3>
+                <p><strong>Category:</strong> ${project.category}</p>
+                <p><strong>Description:</strong> ${project.description}</p>
+                <p><small>Added: ${new Date(project.created_at).toLocaleDateString()}</small></p>
+                ${project.file_path ? `<a href="${project.file_path}" class="file-link" target="_blank">
+                  <i class="fas fa-download"></i> Download File
+                </a>` : ''}
+              `;
+              projectList.appendChild(card);
+            });
+          } else {
+            projectList.innerHTML = '<p style="color: rgba(255,255,255,0.6); text-align: center;">No projects yet. Add your first project!</p>';
+          }
+        })
+        .catch(error => {
+          console.error('Error loading projects:', error);
+        });
+    }
+
+    function deleteProject(id) {
+      if (!confirm('Are you sure you want to delete this project?')) {
+        return;
+      }
+
+      fetch('delete_project.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'id=' + id
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showMessage('Project deleted successfully!', 'success');
+          loadProjects();
+        } else {
+          showMessage(data.message || 'Error deleting project!', 'error');
+        }
+      })
+      .catch(error => {
+        showMessage('Error: ' + error.message, 'error');
+      });
+    }
+
+    function showMessage(message, type) {
+      const messageDiv = document.getElementById('message');
+      messageDiv.textContent = message;
+      messageDiv.className = 'message ' + type;
+      messageDiv.style.display = 'block';
+
+      setTimeout(() => {
+        messageDiv.style.display = 'none';
+      }, 5000);
+    }
+  </script>
 </body>
 </html>

@@ -1,15 +1,12 @@
 <?php
 $host = 'localhost';
-$user = 'root';
-$pass = '';
-$db   = 'login'; // make sure this exists in phpMyAdmin
+$username = 'root';
+$password = ''; // Leave empty if you haven't set a password
+$database = 'user_db'; // Your database name
 
-$conn = new mysql($host, $user, $pass, $db);
+$conn = mysqli_connect($host, $username, $password, $database);
 
-if ($conn->connect_error) {
-    die("❌ Connection failed: " . $conn->connect_error);
-} else {
-    // Optional: Uncomment this line to confirm connection
-    // echo "✅ Connected successfully to database: $db";
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 ?>
