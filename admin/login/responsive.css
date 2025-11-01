@@ -1,0 +1,910 @@
+/* ========================================
+   COMPLETE RESPONSIVE CSS FOR ALL PAGES
+   (Home, About, Portfolio, Service, Project)
+   ======================================== */
+
+/* ========================================
+   TABLET DEVICES (768px - 1024px)
+   ======================================== */
+@media screen and (max-width: 1024px) {
+  /* General Layout */
+  .container {
+    padding: 0 30px;
+    max-width: 100%;
+  }
+
+  /* Header */
+  header {
+    padding: 20px 30px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .navbar a {
+    margin-left: 25px;
+    font-size: 15px;
+  }
+
+  /* HOME PAGE */
+  .home-section {
+    gap: 40px;
+    padding: 30px 0;
+  }
+
+  .home-details h1 {
+    font-size: 2.8em;
+  }
+
+  .home-details h2 {
+    font-size: 1.5em;
+  }
+
+  .home-details p {
+    font-size: 1em;
+  }
+
+  .profile-container {
+    width: 350px;
+    height: 350px;
+  }
+
+  .profile-img {
+    width: 250px;
+    height: 250px;
+  }
+
+  .social-links {
+    right: -30px;
+  }
+
+  /* ABOUT PAGE */
+  .about-section h1 {
+    font-size: 2.5em;
+  }
+
+  .about-content {
+    gap: 40px;
+  }
+
+  .about-text {
+    padding: 35px;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  /* PORTFOLIO/PROFILE PAGE */
+  .portfolio-section h1 {
+    font-size: 2.5em;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  /* SERVICE PAGE */
+  .services-section h1 {
+    font-size: 2.5em;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  /* PROJECT PAGE */
+  .page {
+    max-width: 100%;
+    padding: 20px 15px;
+  }
+
+  .page h1 {
+    font-size: 2.2em;
+  }
+
+  .form-box {
+    padding: 35px 30px;
+  }
+
+  .form-table {
+    font-size: 13px;
+  }
+
+  .form-table th,
+  .form-table td {
+    padding: 12px 10px;
+  }
+
+  .form-table input[type="text"],
+  .form-table textarea,
+  .form-table select {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+/* ========================================
+   MOBILE LANDSCAPE & SMALL TABLETS (481px - 767px)
+   ======================================== */
+@media screen and (max-width: 767px) {
+  /* Header - Convert to Mobile Menu */
+  header {
+    padding: 15px 20px;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  /* Hamburger Menu */
+  .menu-toggle {
+    display: flex !important;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 1000;
+  }
+
+  .menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  /* Mobile Navigation */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 75%;
+    max-width: 300px;
+    height: 100vh;
+    background: rgba(10, 14, 39, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 80px 30px;
+    gap: 20px;
+    transition: left 0.3s ease;
+    z-index: 999;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .navbar.active {
+    left: 0;
+  }
+
+  .navbar a {
+    margin: 0;
+    font-size: 18px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  .navbar a:hover,
+  .navbar a.active {
+    background: rgba(102, 126, 234, 0.3);
+    transform: translateX(10px);
+  }
+
+  /* HOME PAGE - Mobile */
+  .home-section {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+    padding: 20px 0;
+    min-height: auto;
+  }
+
+  .home-details {
+    padding: 20px;
+    order: 2;
+  }
+
+  .home-details h1 {
+    font-size: 2.2em;
+  }
+
+  .home-details h2 {
+    font-size: 1.3em;
+  }
+
+  .home-details p {
+    font-size: 1em;
+  }
+
+  .home-img {
+    order: 1;
+  }
+
+  .profile-container {
+    width: 300px;
+    height: 300px;
+  }
+
+  .profile-img {
+    width: 220px;
+    height: 220px;
+  }
+
+  .social-links {
+    position: static;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .btn {
+    padding: 12px 30px;
+    font-size: 14px;
+  }
+
+  /* ABOUT PAGE - Mobile */
+  .about-section h1 {
+    font-size: 2em;
+    margin-bottom: 30px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .about-img img {
+    max-width: 300px;
+  }
+
+  .about-text {
+    padding: 25px;
+  }
+
+  .about-text h2 {
+    font-size: 1.6em;
+  }
+
+  .about-text p {
+    font-size: 1em;
+  }
+
+  .skills-section h2,
+  .timeline-section h2 {
+    font-size: 2em;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+
+  /* PORTFOLIO/PROFILE PAGE - Mobile */
+  .portfolio-section h1 {
+    font-size: 2em;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .portfolio-card {
+    padding: 20px;
+  }
+
+  .portfolio-card img {
+    height: 200px;
+  }
+
+  /* SERVICE PAGE - Mobile */
+  .services-section h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  .services-section > p {
+    font-size: 1em;
+    margin-bottom: 30px;
+    padding: 0 15px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .service-card {
+    padding: 30px 25px;
+  }
+
+  .service-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8em;
+  }
+
+  .service-card h3 {
+    font-size: 1.5em;
+  }
+
+  .pricing-section h2 {
+    font-size: 2em;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card.featured {
+    transform: scale(1);
+  }
+
+  /* PROJECT PAGE - Mobile (Convert Table to Cards) */
+  .page h1 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+  }
+
+  .form-box {
+    padding: 25px 20px;
+  }
+
+  /* Convert table to stacked layout */
+  .form-table,
+  .form-table thead,
+  .form-table tbody,
+  .form-table tr,
+  .form-table th,
+  .form-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .form-table thead {
+    display: none; /* Hide header on mobile */
+  }
+
+  .form-table tr {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .form-table td {
+    border: none;
+    padding: 10px 0;
+    position: relative;
+    background: transparent;
+  }
+
+  .form-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Add data labels for mobile */
+  .form-table td:nth-child(1)::before {
+    content: "Project Name *";
+  }
+
+  .form-table td:nth-child(2)::before {
+    content: "Project Description *";
+  }
+
+  .form-table td:nth-child(3)::before {
+    content: "Category *";
+  }
+
+  .form-table td:nth-child(4)::before {
+    content: "Upload File";
+  }
+
+  .form-table input[type="text"],
+  .form-table textarea,
+  .form-table select,
+  .form-table input[type="file"] {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .form-table textarea {
+    min-height: 100px;
+  }
+
+  /* Submit button */
+  .form-box button[type="submit"] {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  /* Project cards */
+  .project-card {
+    padding: 15px;
+  }
+
+  .project-card h3 {
+    font-size: 1.2em;
+  }
+
+  .project-card p {
+    font-size: 14px;
+  }
+
+  .project-card .delete-btn {
+    float: none;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  .project-card .file-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  /* Message box */
+  .message {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .file-info {
+    font-size: 11px;
+  }
+}
+
+/* ========================================
+   MOBILE PORTRAIT (320px - 480px)
+   ======================================== */
+@media screen and (max-width: 480px) {
+  /* General */
+  .container {
+    padding: 15px;
+  }
+
+  /* Header */
+  header {
+    padding: 12px 15px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .navbar {
+    width: 85%;
+    padding: 70px 25px;
+  }
+
+  /* HOME PAGE */
+  .home-details h1 {
+    font-size: 1.8em;
+  }
+
+  .home-details h2 {
+    font-size: 1.1em;
+  }
+
+  .home-details p {
+    font-size: 0.95em;
+    line-height: 1.6;
+  }
+
+  .profile-container {
+    width: 250px;
+    height: 250px;
+  }
+
+  .profile-img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .social-links a {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .btn {
+    padding: 10px 25px;
+    font-size: 13px;
+  }
+
+  /* ABOUT PAGE */
+  .about-section h1 {
+    font-size: 1.8em;
+  }
+
+  .about-img img {
+    max-width: 250px;
+  }
+
+  .about-text {
+    padding: 20px;
+  }
+
+  .about-text h2 {
+    font-size: 1.4em;
+  }
+
+  .about-text p {
+    font-size: 0.95em;
+  }
+
+  .skill-card {
+    padding: 20px;
+  }
+
+  .skill-card i {
+    font-size: 2.5em;
+  }
+
+  .skill-card h3 {
+    font-size: 1.3em;
+  }
+
+  .timeline-item {
+    padding: 20px;
+  }
+
+  .timeline-item h3 {
+    font-size: 1.3em;
+  }
+
+  /* PORTFOLIO/PROFILE PAGE */
+  .portfolio-section h1 {
+    font-size: 1.8em;
+  }
+
+  .portfolio-card {
+    padding: 15px;
+  }
+
+  .portfolio-card h3 {
+    font-size: 1.2em;
+  }
+
+  .portfolio-card img {
+    height: 180px;
+  }
+
+  /* SERVICE PAGE */
+  .services-section h1 {
+    font-size: 1.8em;
+  }
+
+  .services-section > p {
+    font-size: 0.95em;
+  }
+
+  .service-card {
+    padding: 25px 20px;
+  }
+
+  .service-icon {
+    width: 65px;
+    height: 65px;
+    font-size: 1.6em;
+  }
+
+  .service-card h3 {
+    font-size: 1.3em;
+  }
+
+  .service-card p {
+    font-size: 0.95em;
+  }
+
+  .service-btn {
+    padding: 10px 25px;
+    font-size: 13px;
+  }
+
+  .pricing-card {
+    padding: 30px 20px;
+  }
+
+  .pricing-card .price {
+    font-size: 2.5em;
+  }
+
+  /* PROJECT PAGE */
+  .page h1 {
+    font-size: 1.6em;
+  }
+
+  .form-box {
+    padding: 20px 15px;
+  }
+
+  .form-table input[type="text"],
+  .form-table textarea,
+  .form-table select {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .form-table textarea {
+    min-height: 80px;
+  }
+
+  .form-box button[type="submit"] {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .form-table input[type="file"]::-webkit-file-upload-button {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .project-card {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+
+  .project-card h3 {
+    font-size: 1.1em;
+  }
+
+  .project-card p {
+    font-size: 13px;
+  }
+
+  .message {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+/* ========================================
+   VERY SMALL DEVICES (< 320px)
+   ======================================== */
+@media screen and (max-width: 320px) {
+  .logo {
+    font-size: 16px;
+  }
+
+  .navbar {
+    width: 90%;
+    padding: 60px 20px;
+  }
+
+  .navbar a {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+
+  /* HOME */
+  .home-details h1 {
+    font-size: 1.5em;
+  }
+
+  .home-details h2 {
+    font-size: 1em;
+  }
+
+  .profile-img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .social-links {
+    gap: 10px;
+  }
+
+  .social-links a {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  /* ABOUT */
+  .about-section h1 {
+    font-size: 1.5em;
+  }
+
+  .about-text h2 {
+    font-size: 1.2em;
+  }
+
+  /* SERVICE */
+  .services-section h1 {
+    font-size: 1.5em;
+  }
+
+  .service-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.4em;
+  }
+
+  /* PROJECT */
+  .page h1 {
+    font-size: 1.4em;
+  }
+
+  .form-box {
+    padding: 15px 10px;
+  }
+
+  .form-table input[type="text"],
+  .form-table textarea,
+  .form-table select {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* ========================================
+   LANDSCAPE ORIENTATION FIX
+   ======================================== */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  header {
+    padding: 10px 20px;
+  }
+
+  .home-section,
+  .about-section,
+  .portfolio-section,
+  .services-section,
+  .page {
+    padding: 20px 0;
+  }
+
+  .home-details h1,
+  .about-section h1,
+  .portfolio-section h1,
+  .services-section h1,
+  .page h1 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .profile-img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .form-box {
+    padding: 20px;
+  }
+
+  .navbar a {
+    padding: 6px 12px;
+  }
+}
+
+/* ========================================
+   VIDEO BACKGROUND RESPONSIVE
+   ======================================== */
+@media screen and (max-width: 767px) {
+  #bg-video {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* ========================================
+   TOUCH DEVICE IMPROVEMENTS
+   ======================================== */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets for mobile */
+  .navbar a,
+  .btn,
+  .service-btn,
+  .form-box button,
+  .delete-btn,
+  .file-link,
+  .social-links a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Remove hover effects on touch devices */
+  .navbar a:hover,
+  .btn:hover,
+  .service-btn:hover,
+  .form-box button:hover,
+  .project-card:hover,
+  .service-card:hover,
+  .portfolio-card:hover {
+    transform: none;
+  }
+
+  /* Add active state instead */
+  .navbar a:active,
+  .btn:active,
+  .service-btn:active,
+  .form-box button:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .form-box,
+  .service-card,
+  .portfolio-card,
+  .project-card,
+  .about-text,
+  .skill-card,
+  .timeline-item {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .form-table input,
+  .form-table textarea,
+  .form-table select {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+  #bg-video,
+  .navbar,
+  .menu-toggle,
+  .form-box button,
+  .delete-btn,
+  .service-btn,
+  .btn,
+  .social-links {
+    display: none !important;
+  }
+
+  .container {
+    background: white;
+  }
+
+  h1, h2, h3, p, li {
+    color: black !important;
+  }
+
+  .form-box,
+  .service-card,
+  .project-card,
+  .portfolio-card {
+    border: 1px solid #000;
+    page-break-inside: avoid;
+  }
+}
