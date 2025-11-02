@@ -32,7 +32,6 @@ $lastName = $_SESSION['last_name'];
             position: relative;
         }
 
-        /* Video Background */
         #bg-video {
             position: fixed;
             top: 0;
@@ -43,7 +42,6 @@ $lastName = $_SESSION['last_name'];
             z-index: -1;
         }
 
-        /* Dark Overlay */
         body::before {
             content: '';
             position: fixed;
@@ -56,31 +54,33 @@ $lastName = $_SESSION['last_name'];
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
             z-index: 1;
         }
 
-        /* Header */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 20px 40px;
             border-radius: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .logo {
             font-size: 24px;
             font-weight: 700;
-            color: #667eea;
+            color: #fff;
             text-decoration: none;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         nav {
@@ -91,73 +91,91 @@ $lastName = $_SESSION['last_name'];
 
         nav a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         nav a:hover {
-            color: #667eea;
+            color: #a8d5ff;
+            transform: translateY(-2px);
         }
 
         .logout-btn {
-            background: #667eea;
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             padding: 10px 20px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .logout-btn:hover {
-            background: #5568d3;
-            color: white;
+            background: rgba(255, 255, 255, 0.3);
         }
 
-        /* Page Title */
         .page-header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 30px;
             border-radius: 15px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             text-align: center;
-            backdrop-filter: blur(10px);
         }
 
         .page-header h1 {
-            color: #333;
+            color: #fff;
             font-size: 36px;
             margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .page-header p {
-            color: #666;
+            color: rgba(255, 255, 255, 0.9);
             font-size: 16px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
-        /* Form Container */
-        .form-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            margin: 0 auto;
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .form-container, .preview-container {
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container h2, .preview-container h2 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
+            color: #fff;
             font-weight: 600;
             font-size: 14px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .form-group input,
@@ -165,24 +183,36 @@ $lastName = $_SESSION['last_name'];
         .form-group select {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
             font-size: 14px;
-            transition: border-color 0.3s;
-            background: white;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group select option {
+            background: #2c3e50;
+            color: #fff;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 100px;
         }
 
         .file-upload {
@@ -196,59 +226,61 @@ $lastName = $_SESSION['last_name'];
         .file-upload-btn {
             display: inline-block;
             padding: 12px 30px;
-            background: #f5f5f5;
-            border: 2px dashed #ccc;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px dashed rgba(255, 255, 255, 0.4);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
+            color: #fff;
+            font-weight: 500;
         }
 
         .file-upload-btn:hover {
-            background: #e8e8e8;
-            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
         }
 
         .file-name {
             margin-top: 10px;
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 14px;
         }
 
         .submit-btn {
             width: 100%;
             padding: 15px;
-            background: #667eea;
+            background: rgba(33, 150, 243, 0.3);
+            border: 1px solid rgba(33, 150, 243, 0.5);
             color: white;
-            border: none;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .submit-btn:hover {
-            background: #5568d3;
+            background: rgba(33, 150, 243, 0.5);
             transform: translateY(-2px);
-        }
-
-        .submit-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
+            box-shadow: 0 5px 20px rgba(33, 150, 243, 0.3);
         }
 
         .view-projects-link {
             display: block;
             text-align: center;
-            margin-top: 20px;
-            color: #667eea;
+            margin-top: 15px;
+            color: #fff;
             text-decoration: none;
             font-weight: 600;
+            transition: all 0.3s;
         }
 
         .view-projects-link:hover {
-            color: #5568d3;
+            color: #a8d5ff;
         }
 
         .message {
@@ -256,21 +288,74 @@ $lastName = $_SESSION['last_name'];
             border-radius: 8px;
             margin-bottom: 20px;
             display: none;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: rgba(76, 175, 80, 0.3);
+            color: #fff;
+            border: 1px solid rgba(76, 175, 80, 0.5);
         }
 
         .error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: rgba(244, 67, 54, 0.3);
+            color: #fff;
+            border: 1px solid rgba(244, 67, 54, 0.5);
         }
 
-        /* Responsive */
+        small {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+        }
+
+        /* Preview Card Styles */
+        .preview-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .preview-card h3 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .preview-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .preview-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .preview-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .preview-empty i {
+            font-size: 60px;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
@@ -289,18 +374,19 @@ $lastName = $_SESSION['last_name'];
     </style>
 </head>
 <body>
-    <!-- Video Background -->
     <video autoplay muted loop id="bg-video">
         <source src="../login/Live Wallpaper 4K Computer CPU.mp4" type="video/mp4">
     </video>
 
     <div class="container">
-        <!-- Header -->
         <header>
             <a href="../login/profile.php" class="logo"><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></a>
             <nav>
                 <a href="../login/profile.php">Home</a>
-                <a href="project.php" style="color: #667eea;">Add Project</a>
+                <a href="../html/About.html">About</a>
+                <a href="../html/portfolio.html">Portfolio</a>
+                <a href="../html/service.html">Service</a>
+                <a href="project.php" style="color: #a8d5ff;">Add Project</a>
                 <a href="view_projects.php">View Projects</a>
                 <a href="../login/logout.php" class="logout-btn">
                     <i class="fas fa-sign-out-alt"></i>
@@ -309,60 +395,69 @@ $lastName = $_SESSION['last_name'];
             </nav>
         </header>
 
-        <!-- Page Header -->
         <div class="page-header">
             <h1><i class="fas fa-plus-circle"></i> Add New Project</h1>
             <p>Fill in the details to add a new project to your portfolio</p>
         </div>
 
-        <!-- Form -->
-        <div class="form-container">
-            <div id="message" class="message"></div>
+        <div class="main-content">
+            <!-- Form Section -->
+            <div class="form-container">
+                <h2><i class="fas fa-edit"></i> Project Details</h2>
+                <div id="message" class="message"></div>
 
-            <form id="projectForm" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="projectName">Project Name *</label>
-                    <input type="text" id="projectName" name="projectName" required placeholder="Enter project name">
-                </div>
-
-                <div class="form-group">
-                    <label for="projectDescription">Project Description *</label>
-                    <textarea id="projectDescription" name="projectDescription" required placeholder="Describe your project..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="projectCategory">Category *</label>
-                    <select id="projectCategory" name="projectCategory" required>
-                        <option value="">Select a category</option>
-                        <option value="Web Development">Web Development</option>
-                        <option value="Mobile App">Mobile App</option>
-                        <option value="UI/UX Design">UI/UX Design</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Upload File (Optional)</label>
-                    <div class="file-upload">
-                        <label for="projectFile" class="file-upload-btn">
-                            <i class="fas fa-upload"></i> Choose File
-                        </label>
-                        <input type="file" id="projectFile" name="projectFile" accept=".pdf,.doc,.docx,.zip,.rar,.jpg,.jpeg,.png">
-                        <div class="file-name" id="fileName">No file chosen</div>
+                <form id="projectForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="projectName">Project Name *</label>
+                        <input type="text" id="projectName" name="projectName" required placeholder="Enter project name">
                     </div>
-                    <small style="color: #666; display: block; margin-top: 5px;">
-                        Accepted: PDF, DOC, DOCX, ZIP, RAR, JPG, PNG (Max 5MB)
-                    </small>
+
+                    <div class="form-group">
+                        <label for="projectDescription">Project Description *</label>
+                        <textarea id="projectDescription" name="projectDescription" required placeholder="Describe your project..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectCategory">Category *</label>
+                        <select id="projectCategory" name="projectCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Mobile App">Mobile App</option>
+                            <option value="UI/UX Design">UI/UX Design</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload File (Optional)</label>
+                        <div class="file-upload">
+                            <label for="projectFile" class="file-upload-btn">
+                                <i class="fas fa-upload"></i> Choose File
+                            </label>
+                            <input type="file" id="projectFile" name="projectFile" accept=".pdf,.doc,.docx,.zip,.rar,.jpg,.jpeg,.png">
+                            <div class="file-name" id="fileName">No file chosen</div>
+                        </div>
+                        <small>Accepted: PDF, DOC, DOCX, ZIP, RAR, JPG, PNG (Max 5MB)</small>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-save"></i> Add Project
+                    </button>
+                </form>
+
+                <a href="view_projects.php" class="view-projects-link">
+                    <i class="fas fa-folder-open"></i> View All Projects
+                </a>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="preview-container">
+                <h2><i class="fas fa-eye"></i> Preview</h2>
+                <div id="previewContent" class="preview-empty">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>Your project preview will appear here as you fill in the form</p>
                 </div>
-
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-save"></i> Add Project
-                </button>
-            </form>
-
-            <a href="view_projects.php" class="view-projects-link">
-                <i class="fas fa-folder-open"></i> View All Projects
-            </a>
+            </div>
         </div>
     </div>
 
@@ -371,7 +466,41 @@ $lastName = $_SESSION['last_name'];
         document.getElementById('projectFile').addEventListener('change', function() {
             const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
             document.getElementById('fileName').textContent = fileName;
+            updatePreview();
         });
+
+        // Update preview on input
+        document.getElementById('projectName').addEventListener('input', updatePreview);
+        document.getElementById('projectDescription').addEventListener('input', updatePreview);
+        document.getElementById('projectCategory').addEventListener('change', updatePreview);
+
+        function updatePreview() {
+            const name = document.getElementById('projectName').value;
+            const description = document.getElementById('projectDescription').value;
+            const category = document.getElementById('projectCategory').value;
+            const file = document.getElementById('projectFile').files[0];
+
+            const previewContainer = document.getElementById('previewContent');
+
+            if (!name && !description && !category) {
+                previewContainer.innerHTML = '<div class="preview-empty"><i class="fas fa-clipboard-list"></i><p>Your project preview will appear here as you fill in the form</p></div>';
+                return;
+            }
+
+            let categoryClass = 'category-other';
+            if (category === 'Web Development') categoryClass = 'category-web';
+            else if (category === 'Mobile App') categoryClass = 'category-mobile';
+            else if (category === 'UI/UX Design') categoryClass = 'category-design';
+
+            previewContainer.innerHTML = '<div class="preview-card">' +
+                (category ? '<span class="project-category ' + categoryClass + '">' + category + '</span>' : '') +
+                '<h3>' + (name || 'Project Name') + '</h3>' +
+                '<p>' + (description || 'Project description will appear here...') + '</p>' +
+                '<div class="preview-meta">' +
+                '<span><i class="fas fa-calendar"></i> ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + '</span>' +
+                (file ? '<span><i class="fas fa-paperclip"></i> ' + file.name + '</span>' : '') +
+                '</div></div>';
+        }
 
         // Handle form submission
         document.getElementById('projectForm').addEventListener('submit', function(e) {
@@ -399,9 +528,10 @@ $lastName = $_SESSION['last_name'];
                     // Reset form
                     document.getElementById('projectForm').reset();
                     document.getElementById('fileName').textContent = 'No file chosen';
+                    updatePreview();
 
                     // Redirect to view projects after 2 seconds
-                    setTimeout(() => {
+                    setTimeout(function() {
                         window.location.href = 'view_projects.php';
                     }, 2000);
                 } else {
@@ -416,11 +546,19 @@ $lastName = $_SESSION['last_name'];
                 messageDiv.textContent = 'An error occurred. Please try again.';
                 messageDiv.style.display = 'block';
             })
-            .finally(() => {
+            .finally(function() {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-save"></i> Add Project';
             });
         });
+
+        // Add category styling
+        const style = document.createElement('style');
+        style.textContent = '.category-web { background: rgba(33, 150, 243, 0.3); color: #a8d5ff; border: 1px solid rgba(33, 150, 243, 0.5); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 15px; }' +
+        '.category-mobile { background: rgba(156, 39, 176, 0.3); color: #e1bee7; border: 1px solid rgba(156, 39, 176, 0.5); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 15px; }' +
+        '.category-design { background: rgba(255, 152, 0, 0.3); color: #ffcc80; border: 1px solid rgba(255, 152, 0, 0.5); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 15px; }' +
+        '.category-other { background: rgba(76, 175, 80, 0.3); color: #c5e1a5; border: 1px solid rgba(76, 175, 80, 0.5); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 15px; }';
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
