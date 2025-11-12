@@ -9,6 +9,26 @@ if (!isset($_SESSION['user_id'])) {
 
 $firstName = $_SESSION['first_name'];
 $lastName = $_SESSION['last_name'];
+$userId = $_SESSION['user_id'];
+
+// Database configuration
+$host = 'localhost';
+$dbname = 'user';  // Your database name
+$username = 'root';
+$password = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // Fetch user's projects
+    $stmt = $pdo->prepare("SELECT * FROM projects WHERE user_id = :user_id ORDER BY created_at DESC");
+    $stmt->execute([':user_id' => $userId]);
+    $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $e) {
+    $error = "Database error: " . $e->getMessage();
+    $projects = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +84,6 @@ $lastName = $_SESSION['last_name'];
         header {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 20px 40px;
             border-radius: 15px;
@@ -113,14 +132,9 @@ $lastName = $_SESSION['last_name'];
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
         .page-header {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 30px;
             border-radius: 15px;
@@ -139,112 +153,76 @@ $lastName = $_SESSION['last_name'];
         .page-header p {
             color: rgba(255, 255, 255, 0.9);
             font-size: 16px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .filter-section {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .filter-section select {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        .filter-section select option {
-            background: #2c3e50;
-            color: #fff;
         }
 
         .add-project-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
+            display: inline-block;
+            margin-top: 15px;
             padding: 12px 30px;
-            border-radius: 8px;
+            background: rgba(33, 150, 243, 0.3);
+            border: 1px solid rgba(33, 150, 243, 0.5);
+            color: white;
             text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            border-radius: 8px;
             transition: all 0.3s;
         }
 
         .add-project-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(33, 150, 243, 0.5);
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
         }
 
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 25px;
+            margin-bottom: 40px;
         }
 
         .project-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             transition: all 0.3s;
+            position: relative;
         }
 
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
         .project-category {
-            display: inline-block;
             padding: 6px 15px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+            display: inline-block;
             margin-bottom: 15px;
         }
 
-        .category-web { 
-            background: rgba(33, 150, 243, 0.3); 
+        .category-web {
+            background: rgba(33, 150, 243, 0.3);
             color: #a8d5ff;
             border: 1px solid rgba(33, 150, 243, 0.5);
         }
-        
-        .category-mobile { 
-            background: rgba(156, 39, 176, 0.3); 
+
+        .category-mobile {
+            background: rgba(156, 39, 176, 0.3);
             color: #e1bee7;
             border: 1px solid rgba(156, 39, 176, 0.5);
         }
-        
-        .category-design { 
-            background: rgba(255, 152, 0, 0.3); 
+
+        .category-design {
+            background: rgba(255, 152, 0, 0.3);
             color: #ffcc80;
             border: 1px solid rgba(255, 152, 0, 0.5);
         }
-        
-        .category-other { 
-            background: rgba(76, 175, 80, 0.3); 
+
+        .category-other {
+            background: rgba(76, 175, 80, 0.3);
             color: #c5e1a5;
             border: 1px solid rgba(76, 175, 80, 0.5);
         }
@@ -253,159 +231,114 @@ $lastName = $_SESSION['last_name'];
             color: #fff;
             font-size: 22px;
             margin-bottom: 12px;
-            line-height: 1.3;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .project-card p {
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 14px;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .project-meta {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 13px;
             color: rgba(255, 255, 255, 0.7);
         }
 
-        .project-meta i {
-            margin-right: 5px;
-        }
-
-        .project-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-download, .btn-delete {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
+        .download-btn {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
+            padding: 8px 16px;
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            color: #c5e1a5;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 10px;
         }
 
-        .btn-download {
-            background: rgba(33, 150, 243, 0.3);
-            border: 1px solid rgba(33, 150, 243, 0.5);
-            color: #fff;
+        .download-btn:hover {
+            background: rgba(76, 175, 80, 0.5);
+            transform: translateY(-2px);
         }
 
-        .btn-download:hover {
-            background: rgba(33, 150, 243, 0.5);
-            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
-        }
-
-        .btn-delete {
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
             background: rgba(244, 67, 54, 0.3);
             border: 1px solid rgba(244, 67, 54, 0.5);
             color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .btn-delete:hover {
+        .delete-btn:hover {
             background: rgba(244, 67, 54, 0.5);
-            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
         }
 
         .empty-state {
+            text-align: center;
+            padding: 80px 20px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
-            padding: 60px;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .empty-state i {
             font-size: 80px;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
             margin-bottom: 20px;
         }
 
-        .empty-state h3 {
+        .empty-state h2 {
             color: #fff;
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 10px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .empty-state p {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 60px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .loading i {
-            font-size: 50px;
-            color: #fff;
-            animation: spin 1s linear infinite;
-        }
-
-        .loading p {
-            color: #fff;
-            margin-top: 20px;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            margin-bottom: 25px;
         }
 
         .error-message {
             background: rgba(244, 67, 54, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(244, 67, 54, 0.5);
             color: #fff;
-            padding: 15px 20px;
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
-            display: none;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
             .projects-grid {
                 grid-template-columns: 1fr;
             }
-
+            
             header {
                 flex-direction: column;
                 gap: 20px;
             }
-
+            
             nav {
                 flex-wrap: wrap;
                 justify-content: center;
-            }
-
-            .filter-section {
-                flex-direction: column;
-                gap: 15px;
             }
         }
     </style>
@@ -434,185 +367,107 @@ $lastName = $_SESSION['last_name'];
 
         <div class="page-header">
             <h1><i class="fas fa-folder-open"></i> My Projects</h1>
-            <p>View, download, and manage all your saved projects</p>
-        </div>
-
-        <div class="error-message" id="errorMessage"></div>
-
-        <div class="filter-section">
-            <select id="categoryFilter">
-                <option value="all">All Categories</option>
-                <option value="Web Development">Web Development</option>
-                <option value="Mobile App">Mobile App</option>
-                <option value="UI/UX Design">UI/UX Design</option>
-                <option value="Other">Other</option>
-            </select>
+            <p>View and manage all your projects</p>
             <a href="project.php" class="add-project-btn">
                 <i class="fas fa-plus"></i> Add New Project
             </a>
         </div>
 
-        <div id="projectsContainer">
-            <div class="loading">
-                <i class="fas fa-spinner"></i>
-                <p>Loading projects...</p>
+        <?php if (isset($error)): ?>
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i> <?php echo htmlspecialchars($error); ?>
             </div>
-        </div>
+        <?php endif; ?>
+
+        <?php if (empty($projects)): ?>
+            <div class="empty-state">
+                <i class="fas fa-folder-open"></i>
+                <h2>No Projects Yet</h2>
+                <p>You haven't added any projects. Start by creating your first project!</p>
+                <a href="project.php" class="add-project-btn">
+                    <i class="fas fa-plus"></i> Create Your First Project
+                </a>
+            </div>
+        <?php else: ?>
+            <div class="projects-grid">
+                <?php foreach ($projects as $project): 
+                    $categoryClass = 'category-other';
+                    if ($project['project_category'] === 'Web Development') $categoryClass = 'category-web';
+                    elseif ($project['project_category'] === 'Mobile App') $categoryClass = 'category-mobile';
+                    elseif ($project['project_category'] === 'UI/UX Design') $categoryClass = 'category-design';
+                ?>
+                    <div class="project-card" data-project-id="<?php echo $project['id']; ?>">
+                        <button class="delete-btn" onclick="deleteProject(<?php echo $project['id']; ?>)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        
+                        <span class="project-category <?php echo $categoryClass; ?>">
+                            <?php echo htmlspecialchars($project['project_category']); ?>
+                        </span>
+                        
+                        <h3><?php echo htmlspecialchars($project['project_name']); ?></h3>
+                        <p><?php echo htmlspecialchars($project['project_description']); ?></p>
+                        
+                        <div class="project-meta">
+                            <span>
+                                <i class="fas fa-calendar"></i>
+                                <?php echo date('M d, Y', strtotime($project['created_at'])); ?>
+                            </span>
+                            <?php if ($project['file_name']): ?>
+                                <span>
+                                    <i class="fas fa-paperclip"></i>
+                                    <?php echo htmlspecialchars($project['file_name']); ?>
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <?php if ($project['file_path']): ?>
+                            <a href="download.php?id=<?php echo $project['id']; ?>" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                Download File
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
 
     <script>
-        let allProjects = [];
-
-        document.addEventListener('DOMContentLoaded', function() {
-            loadProjects();
-        });
-
-        document.getElementById('categoryFilter').addEventListener('change', function() {
-            filterProjects(this.value);
-        });
-
-        function loadProjects() {
-            fetch('get_project.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        allProjects = data.projects;
-                        displayProjects(allProjects);
-                    } else {
-                        showError('Failed to load projects: ' + data.message);
-                        displayEmptyState();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showError('Error loading projects. Please refresh the page.');
-                    displayEmptyState();
-                });
-        }
-
-        function displayProjects(projects) {
-            const container = document.getElementById('projectsContainer');
-            
-            if (projects.length === 0) {
-                displayEmptyState();
+        function deleteProject(projectId) {
+            if (!confirm('Are you sure you want to delete this project?')) {
                 return;
             }
 
-            let html = '<div class="projects-grid">';
-            
-            projects.forEach(project => {
-                const categoryClass = getCategoryClass(project.category);
-                const date = new Date(project.created_at).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                });
-                
-                html += '<div class="project-card" data-category="' + project.category + '">';
-                html += '<span class="project-category ' + categoryClass + '">' + project.category + '</span>';
-                html += '<h3>' + escapeHtml(project.project_name) + '</h3>';
-                html += '<p>' + escapeHtml(project.description) + '</p>';
-                html += '<div class="project-meta">';
-                html += '<span><i class="fas fa-calendar"></i> ' + date + '</span>';
-                if (project.file_path) {
-                    html += '<span><i class="fas fa-paperclip"></i> Has Attachment</span>';
-                }
-                html += '</div>';
-                html += '<div class="project-actions">';
-                
-                if (project.file_path) {
-                    html += '<button class="btn-download" onclick="downloadFile(\'' + project.file_path + '\', \'' + escapeHtml(project.project_name) + '\')">';
-                    html += '<i class="fas fa-download"></i> Download</button>';
-                } else {
-                    html += '<button class="btn-download" disabled style="opacity: 0.5; cursor: not-allowed;">';
-                    html += '<i class="fas fa-download"></i> No File</button>';
-                }
-                
-                html += '<button class="btn-delete" onclick="deleteProject(' + project.id + ', \'' + escapeHtml(project.project_name) + '\')">';
-                html += '<i class="fas fa-trash"></i> Delete</button>';
-                html += '</div></div>';
-            });
-            
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        function displayEmptyState() {
-            const container = document.getElementById('projectsContainer');
-            container.innerHTML = '<div class="empty-state">' +
-                '<i class="fas fa-folder-open"></i>' +
-                '<h3>No Projects Yet</h3>' +
-                '<p>Start by adding your first project!</p>' +
-                '<a href="project.php" class="add-project-btn">' +
-                '<i class="fas fa-plus"></i> Add Your First Project</a></div>';
-        }
-
-        function filterProjects(category) {
-            if (category === 'all') {
-                displayProjects(allProjects);
-            } else {
-                const filtered = allProjects.filter(p => p.category === category);
-                displayProjects(filtered);
-            }
-        }
-
-        function getCategoryClass(category) {
-            const classes = {
-                'Web Development': 'category-web',
-                'Mobile App': 'category-mobile',
-                'UI/UX Design': 'category-design',
-                'Other': 'category-other'
-            };
-            return classes[category] || 'category-other';
-        }
-
-        function downloadFile(filePath, projectName) {
-            window.open(filePath, '_blank');
-        }
-
-        function deleteProject(id, name) {
-            if (!confirm('Are you sure you want to delete "' + name + '"? This action cannot be undone.')) {
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('id', id);
-
-            fetch('delete.php', {
+            fetch('delete_project.php', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ project_id: projectId })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    allProjects = allProjects.filter(p => p.id != id);
-                    const currentFilter = document.getElementById('categoryFilter').value;
-                    filterProjects(currentFilter);
-                    alert('Project deleted successfully!');
+                    const card = document.querySelector(`[data-project-id="${projectId}"]`);
+                    card.style.transition = 'all 0.3s';
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        card.remove();
+                        const grid = document.querySelector('.projects-grid');
+                        if (grid && grid.children.length === 0) {
+                            location.reload();
+                        }
+                    }, 300);
                 } else {
-                    showError('Failed to delete project: ' + data.message);
+                    alert('Error: ' + data.message);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                showError('Error deleting project. Please try again.');
+                alert('An error occurred while deleting the project.');
             });
-        }
-
-        function showError(message) {
-            const errorDiv = document.getElementById('errorMessage');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-            
-            setTimeout(function() {
-                errorDiv.style.display = 'none';
-            }, 5000);
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
     </script>
 </body>
