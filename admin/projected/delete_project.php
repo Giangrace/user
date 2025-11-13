@@ -4,59 +4,60 @@ include 'db_conn.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = mysqli_real_escape_string($conn, $_POST['id']);
+    
+    if (!isset($_POST['id']) || empty($_POST['id'])) {
+        echo json_encode(['success' => false, 'message' => 'No project ID provided']);
+        exit;
+    }
+    
+    $id = intval($_POST['id']);
     
     // Get file path before deleting
-    $sql = "SELECT file_path FROM projects WHERE id = '$id'";
-    $result = mysqli_query($conn, $sql);
+    $stmt = mysqli_prepare($conn, "SELECT file_path FROM projects WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     
-    if ($result && mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         $filePath = $row['file_path'];
         
         // Delete from database
-        $deleteSql = "DELETE FROM projects WHERE id = '$id'";
+        $deleteStmt = mysqli_prepare($conn, "DELETE FROM projects WHERE id = ?");
+        mysqli_stmt_bind_param($deleteStmt, "i", $id);
         
-        if (mysqli_query($conn, $deleteSql)) {
-            // Try to delete the physical file
-            $fullPath = __DIR__ . '/' . $filePath;
+        if (mysqli_stmt_execute($deleteStmt)) {
+            $fileDeleted = false;
             
-            if (file_exists($fullPath)) {
-                if (unlink($fullPath)) {
-                    echo json_encode([
-                        'success' => true, 
-                        'message' => 'Project and file deleted successfully'
-                    ]);
+            // Try to delete the physical file
+            if (!empty($filePath) && file_exists($filePath)) {
+                if (unlink($filePath)) {
+                    $fileDeleted = true;
+                    $message = 'Project and file deleted successfully';
                 } else {
-                    echo json_encode([
-                        'success' => true, 
-                        'message' => 'Project deleted but file removal failed',
-                        'warning' => 'File could not be deleted from server'
-                    ]);
+                    $message = 'Project deleted but file could not be removed';
                 }
             } else {
-                echo json_encode([
-                    'success' => true, 
-                    'message' => 'Project deleted (file not found on server)'
-                ]);
+                $message = 'Project deleted (no file was attached)';
             }
-        } else {
+            
             echo json_encode([
-                'success' => false, 
-                'message' => 'Database deletion failed: ' . mysqli_error($conn)
+                'success' => true,
+                'message' => $message,
+                'file_deleted' => $fileDeleted
             ]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to delete project']);
         }
+        
+        mysqli_stmt_close($deleteStmt);
     } else {
-        echo json_encode([
-            'success' => false, 
-            'message' => 'Project not found'
-        ]);
+        echo json_encode(['success' => false, 'message' => 'Project not found']);
     }
+    
+    mysqli_stmt_close($stmt);
 } else {
-    echo json_encode([
-        'success' => false, 
-        'message' => 'Invalid request method'
-    ]);
+    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }
 
 mysqli_close($conn);
