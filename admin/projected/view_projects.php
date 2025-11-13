@@ -272,10 +272,15 @@ try {
             transform: translateY(-2px);
         }
 
-        .delete-btn {
+        .action-buttons {
             position: absolute;
             top: 15px;
             right: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .edit-btn, .delete-btn {
             background: rgba(244, 67, 54, 0.3);
             border: 1px solid rgba(244, 67, 54, 0.5);
             color: #fff;
@@ -283,6 +288,16 @@ try {
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
+            border: none;
+        }
+
+        .edit-btn {
+            background: rgba(33, 150, 243, 0.3);
+            border: 1px solid rgba(33, 150, 243, 0.5);
+        }
+
+        .edit-btn:hover {
+            background: rgba(33, 150, 243, 0.5);
         }
 
         .delete-btn:hover {
@@ -324,6 +339,102 @@ try {
             border-radius: 8px;
             margin-bottom: 20px;
             text-align: center;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2196f3;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #4b5563;
+        }
+
+        .btn-save {
+            background: #2196f3;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #1976d2;
         }
 
         @media (max-width: 768px) {
@@ -397,9 +508,14 @@ try {
                     elseif ($project['project_category'] === 'UI/UX Design') $categoryClass = 'category-design';
                 ?>
                     <div class="project-card" data-project-id="<?php echo $project['id']; ?>">
-                        <button class="delete-btn" onclick="deleteProject(<?php echo $project['id']; ?>)">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        <div class="action-buttons">
+                            <button class="edit-btn" onclick="openEditModal(<?php echo $project['id']; ?>, '<?php echo htmlspecialchars(addslashes($project['project_name'])); ?>', '<?php echo htmlspecialchars(addslashes($project['project_description'])); ?>')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="delete-btn" onclick="deleteProject(<?php echo $project['id']; ?>)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                         
                         <span class="project-category <?php echo $categoryClass; ?>">
                             <?php echo htmlspecialchars($project['project_category']); ?>
@@ -433,7 +549,80 @@ try {
         <?php endif; ?>
     </div>
 
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h2 class="modal-header"><i class="fas fa-edit"></i> Edit Project</h2>
+            <form id="editForm">
+                <input type="hidden" id="editProjectId">
+                <div class="form-group">
+                    <label for="editProjectName">Project Name</label>
+                    <input type="text" id="editProjectName" placeholder="Enter project name" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProjectDescription">Project Description</label>
+                    <textarea id="editProjectDescription" rows="4" placeholder="Enter project description" required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn btn-save">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
+        function openEditModal(id, name, description) {
+            document.getElementById('editProjectId').value = id;
+            document.getElementById('editProjectName').value = name;
+            document.getElementById('editProjectDescription').value = description;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            document.getElementById('editForm').reset();
+        }
+
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('editProjectId').value;
+            const name = document.getElementById('editProjectName').value;
+            const description = document.getElementById('editProjectDescription').value;
+            
+            fetch('edit_project.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    project_id: id,
+                    project_name: name,
+                    project_description: description
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Project updated successfully!');
+                    location.reload();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to update project. Please try again.');
+            });
+        });
+
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEditModal();
+            }
+        });
+
         function deleteProject(projectId) {
             if (!confirm('Are you sure you want to delete this project?')) {
                 return;
