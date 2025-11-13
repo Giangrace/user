@@ -377,7 +377,7 @@ $lastName = $_SESSION['last_name'];
     <video autoplay muted loop id="bg-video">
         <source src="../login/Live Wallpaper 4K Computer CPU.mp4" type="video/mp4">
     </video>
-
+<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
     <div class="container">
         <header>
             <a href="../login/profile.php" class="logo"><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></a>
@@ -407,19 +407,21 @@ $lastName = $_SESSION['last_name'];
                 <div id="message" class="message"></div>
 
                 <form id="projectForm" enctype="multipart/form-data">
+                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                    
                     <div class="form-group">
                         <label for="projectName">Project Name *</label>
-                        <input type="text" id="projectName" name="projectName" required placeholder="Enter project name">
+                        <input type="text" id="projectName" name="project_name" required placeholder="Enter project name">
                     </div>
 
                     <div class="form-group">
                         <label for="projectDescription">Project Description *</label>
-                        <textarea id="projectDescription" name="projectDescription" required placeholder="Describe your project..."></textarea>
+                        <textarea id="projectDescription" name="project_description" required placeholder="Describe your project..."></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="projectCategory">Category *</label>
-                        <select id="projectCategory" name="projectCategory" required>
+                        <select id="projectCategory" name="project_category" required>
                             <option value="">Select a category</option>
                             <option value="Web Development">Web Development</option>
                             <option value="Mobile App">Mobile App</option>
@@ -429,15 +431,15 @@ $lastName = $_SESSION['last_name'];
                     </div>
 
                     <div class="form-group">
-                        <label>Upload File (Optional)</label>
+                        <label>Upload File *</label>
                         <div class="file-upload">
                             <label for="projectFile" class="file-upload-btn">
                                 <i class="fas fa-upload"></i> Choose File
                             </label>
-                            <input type="file" id="projectFile" name="projectFile" accept=".pdf,.doc,.docx,.zip,.rar,.jpg,.jpeg,.png">
+                            <input type="file" id="projectFile" name="project_file" accept=".pdf,.doc,.docx,.zip,.rar,.jpg,.jpeg,.png" required>
                             <div class="file-name" id="fileName">No file chosen</div>
                         </div>
-                        <small>Accepted: PDF, DOC, DOCX, ZIP, RAR, JPG, PNG (Max 5MB)</small>
+                        <small>Accepted: PDF, DOC, DOCX, ZIP, RAR, JPG, PNG (Max 10MB)</small>
                     </div>
 
                     <button type="submit" class="submit-btn">
