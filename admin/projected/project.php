@@ -263,10 +263,15 @@ $lastName = $_SESSION['last_name'];
             gap: 10px;
         }
 
-        .submit-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             background: rgba(33, 150, 243, 0.5);
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(33, 150, 243, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .view-projects-link {
@@ -296,12 +301,14 @@ $lastName = $_SESSION['last_name'];
             background: rgba(76, 175, 80, 0.3);
             color: #fff;
             border: 1px solid rgba(76, 175, 80, 0.5);
+            display: block;
         }
 
         .error {
             background: rgba(244, 67, 54, 0.3);
             color: #fff;
             border: 1px solid rgba(244, 67, 54, 0.5);
+            display: block;
         }
 
         small {
@@ -309,7 +316,6 @@ $lastName = $_SESSION['last_name'];
             font-size: 12px;
         }
 
-        /* Preview Card Styles */
         .preview-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -350,6 +356,54 @@ $lastName = $_SESSION['last_name'];
             color: rgba(255, 255, 255, 0.3);
         }
 
+        .category-web { 
+            background: rgba(33, 150, 243, 0.3); 
+            color: #a8d5ff; 
+            border: 1px solid rgba(33, 150, 243, 0.5); 
+            padding: 6px 15px; 
+            border-radius: 20px; 
+            font-size: 12px; 
+            font-weight: 600; 
+            display: inline-block; 
+            margin-bottom: 15px; 
+        }
+        
+        .category-mobile { 
+            background: rgba(156, 39, 176, 0.3); 
+            color: #e1bee7; 
+            border: 1px solid rgba(156, 39, 176, 0.5); 
+            padding: 6px 15px; 
+            border-radius: 20px; 
+            font-size: 12px; 
+            font-weight: 600; 
+            display: inline-block; 
+            margin-bottom: 15px; 
+        }
+        
+        .category-design { 
+            background: rgba(255, 152, 0, 0.3); 
+            color: #ffcc80; 
+            border: 1px solid rgba(255, 152, 0, 0.5); 
+            padding: 6px 15px; 
+            border-radius: 20px; 
+            font-size: 12px; 
+            font-weight: 600; 
+            display: inline-block; 
+            margin-bottom: 15px; 
+        }
+        
+        .category-other { 
+            background: rgba(76, 175, 80, 0.3); 
+            color: #c5e1a5; 
+            border: 1px solid rgba(76, 175, 80, 0.5); 
+            padding: 6px 15px; 
+            border-radius: 20px; 
+            font-size: 12px; 
+            font-weight: 600; 
+            display: inline-block; 
+            margin-bottom: 15px; 
+        }
+
         @media (max-width: 1024px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -377,7 +431,7 @@ $lastName = $_SESSION['last_name'];
     <video autoplay muted loop id="bg-video">
         <source src="../login/Live Wallpaper 4K Computer CPU.mp4" type="video/mp4">
     </video>
-<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+
     <div class="container">
         <header>
             <a href="../login/profile.php" class="logo"><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></a>
@@ -401,7 +455,6 @@ $lastName = $_SESSION['last_name'];
         </div>
 
         <div class="main-content">
-            <!-- Form Section -->
             <div class="form-container">
                 <h2><i class="fas fa-edit"></i> Project Details</h2>
                 <div id="message" class="message"></div>
@@ -452,7 +505,6 @@ $lastName = $_SESSION['last_name'];
                 </a>
             </div>
 
-            <!-- Preview Section -->
             <div class="preview-container">
                 <h2><i class="fas fa-eye"></i> Preview</h2>
                 <div id="previewContent" class="preview-empty">
@@ -495,7 +547,7 @@ $lastName = $_SESSION['last_name'];
             else if (category === 'UI/UX Design') categoryClass = 'category-design';
 
             previewContainer.innerHTML = '<div class="preview-card">' +
-                (category ? '<span class="project-category ' + categoryClass + '">' + category + '</span>' : '') +
+                (category ? '<span class="' + categoryClass + '">' + category + '</span>' : '') +
                 '<h3>' + (name || 'Project Name') + '</h3>' +
                 '<p>' + (description || 'Project description will appear here...') + '</p>' +
                 '<div class="preview-meta">' +
@@ -510,18 +562,35 @@ $lastName = $_SESSION['last_name'];
 
             const formData = new FormData(this);
             const messageDiv = document.getElementById('message');
+            const submitBtn = this.querySelector('.submit-btn');
 
             // Show loading state
-            const submitBtn = this.querySelector('.submit-btn');
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding Project...';
+            messageDiv.style.display = 'none';
+
+            console.log('Submitting form to add_project.php...');
 
             fetch('add_project.php', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
+            .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response type:', response.headers.get('Content-Type'));
+                return response.text();
+            })
+            .then(text => {
+                console.log('Raw response:', text);
+                
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    console.error('JSON parse error:', e);
+                    throw new Error('Server returned invalid response: ' + text.substring(0, 100));
+                }
+
                 if (data.success) {
                     messageDiv.className = 'message success';
                     messageDiv.textContent = data.message;
@@ -538,14 +607,15 @@ $lastName = $_SESSION['last_name'];
                     }, 2000);
                 } else {
                     messageDiv.className = 'message error';
-                    messageDiv.textContent = data.message;
+                    messageDiv.textContent = 'Error: ' + data.message;
                     messageDiv.style.display = 'block';
+                    console.error('Server error:', data.message);
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Fetch error:', error);
                 messageDiv.className = 'message error';
-                messageDiv.textContent = 'An error occurred. Please try again.';
+                messageDiv.textContent = 'Error: ' + error.message;
                 messageDiv.style.display = 'block';
             })
             .finally(function() {
@@ -553,14 +623,6 @@ $lastName = $_SESSION['last_name'];
                 submitBtn.innerHTML = '<i class="fas fa-save"></i> Add Project';
             });
         });
-
-        // Add category styling
-        const style = document.createElement('style');
-        style.textContent = '.category-web { background: rgba(33, 150, 243, 0.3); color: #a8d5ff; border: 1px solid rgba(33, 150, 243, 0.5); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 15px; }' +
-        '.category-mobile { background: rgba(156, 39, 176, 0.3); color: #e1bee7; border: 1px solid rgba(156, 39, 176, 0.5); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 15px; }' +
-        '.category-design { background: rgba(255, 152, 0, 0.3); color: #ffcc80; border: 1px solid rgba(255, 152, 0, 0.5); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 15px; }' +
-        '.category-other { background: rgba(76, 175, 80, 0.3); color: #c5e1a5; border: 1px solid rgba(76, 175, 80, 0.5); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 15px; }';
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
