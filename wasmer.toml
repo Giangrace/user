@@ -1,24 +1,16 @@
 [package]
-name = "user"
+name = "your-app-name"
 version = "0.1.0"
-description = "PHP Web Application"
-
-[dependencies]
-"php/php" = "^8.2"
+description = "Your app description"
 
 [[module]]
-name = "php"
-source = "php/php@8.2.13"
+name = "your-module-name"
+source = "path/to/your/compiled.wasm"
 abi = "wasi"
 
-[fs]
-"/app" = "."
+[dependencies]
 
 [[command]]
-name = "script"
-module = "php/php:php"
+name = "your-app"
+module = "your-module-name"
 runner = "wasi"
-
-[command.annotations.wasi]
-env = ["DOCROOT=/app"]
-main-args = ["-t", "/app", "-S", "0.0.0.0:8080"]
