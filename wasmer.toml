@@ -1,0 +1,24 @@
+[package]
+name = "user"
+version = "0.1.0"
+description = "PHP Web Application"
+
+[dependencies]
+"php/php" = "^8.2"
+
+[[module]]
+name = "php"
+source = "php/php@8.2.13"
+abi = "wasi"
+
+[fs]
+"/app" = "."
+
+[[command]]
+name = "script"
+module = "php/php:php"
+runner = "wasi"
+
+[command.annotations.wasi]
+env = ["DOCROOT=/app"]
+main-args = ["-t", "/app", "-S", "0.0.0.0:8080"]
