@@ -8,7 +8,7 @@ if (isset($_POST['SignIn'])) {
     
     // Validate input
     if (empty($email) || empty($password)) {
-        echo "<script>alert('All fields are required!'); window.location.href='index.php';</script>";
+        echo "<script>alert('All fields are required!'); window.location.href='../../index.php';</script>";
         exit();
     }
     
@@ -34,11 +34,11 @@ if (isset($_POST['SignIn'])) {
             header("Location: profile.php");
             exit();
         } else {
-            echo "<script>alert('Invalid password!'); window.location.href='index.php';</script>";
+            echo "<script>alert('Invalid password!'); window.location.href='../../index.php';</script>";
             exit();
         }
     } else {
-        echo "<script>alert('Email not found!'); window.location.href='index.php';</script>";
+        echo "<script>alert('Email not found!'); window.location.href='../../index.php';</script>";
         exit();
     }
     

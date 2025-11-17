@@ -14,7 +14,7 @@ if (isset($_POST['SignUp'])) {
 
     // Validate input
     if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
-        echo "<script>alert('All fields are required!'); window.location.href='index.php';</script>";
+        echo "<script>alert('All fields are required!'); window.location.href='../../index.php';</script>";
         exit();
     }
 
@@ -30,7 +30,7 @@ if (isset($_POST['SignUp'])) {
     $result = $checkStmt->get_result();
 
     if ($result && $result->num_rows > 0) {
-        echo "<script>alert('Email already exists!'); window.location.href='index.php';</script>";
+        echo "<script>alert('Email already exists!'); window.location.href='../../index.php';</script>";
         $checkStmt->close();
         $conn->close();
         exit();
@@ -51,17 +51,17 @@ if (isset($_POST['SignUp'])) {
     if ($stmt->execute()) {
         echo "<script>
             alert('Registration successful! Please sign in.');
-            window.location.href='index.php';
+            window.location.href='../../index.php';
         </script>";
     } else {
-        echo "<script>alert('Database error: " . $stmt->error . "'); window.location.href='index.php';</script>";
+        echo "<script>alert('Database error: " . $stmt->error . "'); window.location.href='../../index.php';</script>";
     }
 
     $stmt->close();
     $checkStmt->close();
     $conn->close();
 } else {
-    header("Location: index.php");
+    header("Location: ../../index.php");
     exit();
 }
 ?>
