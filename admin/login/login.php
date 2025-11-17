@@ -45,7 +45,7 @@ if (isset($_POST['SignIn'])) {
     $stmt->close();
     $conn->close();
 } else {
-    header("Location: index.php");
+    header("Location: ../../index.php");
     exit();
 }
 ?>
