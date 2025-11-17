@@ -1,6 +1,12 @@
 [package]
-name = "my-static-site"
+name = "portfolio"
 version = "1.0.0"
 
-[script]
-start = "static-web-server --port 8080 --root ."
+[fs]
+public = "."
+
+[app]
+command = "static-web-server"
+
+[build]
+command = "echo 'Static site – no build needed'"
