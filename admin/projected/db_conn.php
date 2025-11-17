@@ -8,11 +8,13 @@ $port = 10272;
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
-// Check connection
+// If connection fails, return JSON and stop script
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'message' => 'DB Connection failed: '.$conn->connect_error]);
+    exit;
 }
 
-// Set charset to prevent encoding issues
+// Set charset
 $conn->set_charset("utf8mb4");
 ?>
