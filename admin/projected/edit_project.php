@@ -1,6 +1,6 @@
 <?php
-include 'db_conn.php';
 header('Content-Type: application/json');
+include 'db_conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = mysqli_real_escape_string($conn, $_POST['id']);
