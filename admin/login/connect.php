@@ -5,7 +5,7 @@ $pass = "0691a7b8-0950-7508-8000-8054effaa657";
 $db   = "db_projects";
 $port = 10272;
 
-$conn = new mysqli($host, $user, $pass, $port);
+$conn = new mysqli($host, $user, $pass, $db, $port);
 
 if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);
