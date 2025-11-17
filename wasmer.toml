@@ -1,16 +1,6 @@
 [package]
-name = "your-app-name"
-version = "0.1.0"
-description = "Your app description"
+name = "my-static-site"
+version = "1.0.0"
 
-[[module]]
-name = "your-module-name"
-source = "path/to/your/compiled.wasm"
-abi = "wasi"
-
-[dependencies]
-
-[[command]]
-name = "your-app"
-module = "your-module-name"
-runner = "wasi"
+[script]
+start = "static-web-server --port 8080 --root ."
