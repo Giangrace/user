@@ -12,16 +12,16 @@ $lastName = $_SESSION['last_name'];
 $userId = $_SESSION['user_id'];
 
 // Database configuration
-$host = 'localhost';
-$dbname = 'user';  // Your database name
-$username = 'root';
-$password = '';
+$host = 'db.fr-pari1.bengt.wasmernet.com';
+$dbname = 'db_projects';  // Your database name
+$username = 'a7b8095073348000656f19d84301';
+$password = '0691a7b8-0950-7508-8000-8054effaa657';
+$port = 10272;
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    // Fetch user's projects
     $stmt = $pdo->prepare("SELECT * FROM projects WHERE user_id = :user_id ORDER BY created_at DESC");
     $stmt->execute([':user_id' => $userId]);
     $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
