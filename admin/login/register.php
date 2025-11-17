@@ -2,6 +2,10 @@
 session_start();
 require_once 'connect.php';
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (isset($_POST['SignUp'])) {
     $firstName = trim($_POST['fName']);
     $lastName = trim($_POST['lName']);
