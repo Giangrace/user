@@ -1,17 +1,16 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "login"; // your desired database name
+$host = "db.fr-pari1.bengt.wasmernet.com";
+$user = "a7b8095073348000656f19d84301";
+$pass = "0691a7b8-0950-7508-8000-8054effaa657";
+$db   = "db_projects";
+$port = 10272;
 
-// Step 1: Connect to MySQL server (without selecting a database yet)
-$conn = new mysqli($host, $user, $pass);
+$conn = new mysqli($host, $user, $pass, $port);
 
 if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);
 }
 
-// Step 2: Create the database if it doesn’t exist
 if (!$conn->select_db($db)) {
     $createDB = "CREATE DATABASE `$db`";
     if ($conn->query($createDB) === TRUE) {

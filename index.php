@@ -9,7 +9,7 @@ ini_set('display_errors', 1);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login & Register</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin/login/style.css" />
   </head>
   <body>
     <div class="wrapper">
@@ -17,7 +17,7 @@ ini_set('display_errors', 1);
       <div class="container" id="signUp">
         <h1 class="form-title">Register</h1>
         
-        <form method="post" action="register.php">
+        <form method="post" action="admin/login/register.php">
           <div class="input-group">
             <i class="fas fa-user"></i>
             <input type="text" name="fName" id="fName" placeholder=" " required>
@@ -63,7 +63,7 @@ ini_set('display_errors', 1);
       <div class="container" id="signIn" style="display:none;">
         <h1 class="form-title">Sign In</h1>
         
-        <form method="post" action="login.php">
+        <form method="post" action="admin/login/login.php">
           <div class="input-group">
             <i class="fas fa-envelope"></i>
             <input type="email" name="email" id="email-login" placeholder=" " required>
@@ -94,6 +94,6 @@ ini_set('display_errors', 1);
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="admin/login/script.js"></script>
   </body>
 </html>
