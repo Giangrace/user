@@ -17,19 +17,20 @@ try {
     }
 
     $id = $data['project_id'] ?? null;
-    $name = $data['project_name'] ?? '';
-    $description = $data['project_description'] ?? '';
+    $project_name = $data['project_name'] ?? '';
+    $project_description = $data['project_description'] ?? '';
 
     if (!$id) {
         throw new Exception('Missing project ID');
     }
 
-    $stmt = $conn->prepare("UPDATE projects SET name = ?, description = ? WHERE id = ?");
+    // Update query matches your table columns
+    $stmt = $conn->prepare("UPDATE projects SET project_name = ?, project_description = ? WHERE id = ?");
     if (!$stmt) {
         throw new Exception('Prepare failed: ' . $conn->error);
     }
 
-    $stmt->bind_param("ssi", $name, $description, $id);
+    $stmt->bind_param("ssi", $project_name, $project_description, $id);
 
     if (!$stmt->execute()) {
         throw new Exception('Execute failed: ' . $stmt->error);
